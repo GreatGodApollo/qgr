@@ -3,6 +3,6 @@ module github.com/GreatGodApollo/qgr
 go 1.14
 
 require (
-	github.com/go-git/go-git/v5 v5.0.0
+	github.com/go-cmd/cmd v1.2.0
 	github.com/spf13/cobra v0.0.7
 )

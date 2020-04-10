@@ -23,7 +23,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/go-git/go-git/v5"
+	cm "github.com/go-cmd/cmd"
 	"github.com/spf13/cobra"
 	"os"
 	"text/template"
@@ -50,7 +50,7 @@ var rootCmd = &cobra.Command{
 to start with your git repository. It starts you out
 with a fancy shmancy README.md and the MIT LICENSE.`,
 	Run:     run,
-	Version: "1.1.0",
+	Version: "1.1.1",
 }
 
 func run(cmd *cobra.Command, args []string) {
@@ -89,8 +89,9 @@ func run(cmd *cobra.Command, args []string) {
 	}
 
 	if doInit {
-		_, err = git.PlainInit("./", false)
-		if err != nil {
+		c := cm.NewCmd("git", "init")
+		s := <-c.Start()
+		if s.Error != nil {
 			fmt.Println("Could not initialize git repo: ", err)
 		}
 	}
