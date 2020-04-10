@@ -2,8 +2,9 @@
 <p align="center"><i>Made with :heart: by <a href="https://github.com/GreatGodApollo">@GreatGodApollo</a></i></p>
 
 Quick Git Repo (qgr) is a command line utility to aid in the creation of a git repository.
-Currently the utility only creates the `LICENSE` and `README.md` file, and does not initialize
-a proper git repository, this functionality could be expanded upon.
+Currently the utility puts the [MIT License](https://choosealicense.com/licenses/mit/)
+in `LICENSE`, a fancy readme in `README.md`, and with the flag `-i`, can initialize a
+git repository in your current directory.
 
 ## Installation
 
@@ -24,6 +25,7 @@ Of course you may want to add it to your path for ease of use ;)
 
 ## Built With
 - [spf13/cobra](https://github.com/spf13/cobra)
+- [go-git/go-git](https://github.com/go-git/go-git)
 
 ## Usage
 
@@ -41,6 +43,7 @@ Flags:
   -u, --authorUsername string   author's username
   -d, --description string      project's description
   -h, --help                    help for qgr
+  -i, --init                    initialize git repo
   -n, --name string             project's name
   -v, --version                 version for qgr
 ```

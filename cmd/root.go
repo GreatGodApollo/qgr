@@ -23,6 +23,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/go-git/go-git/v5"
 	"github.com/spf13/cobra"
 	"os"
 	"text/template"
@@ -30,14 +31,15 @@ import (
 )
 
 var project projInfo
+var doInit bool
 
 type projInfo struct {
-	AuthorName			string
-	AuthorUsername		string
-	AuthorEmail			string
-	ProjectName			string
-	ProjectDescription	string
-	Year				string
+	AuthorName         string
+	AuthorUsername     string
+	AuthorEmail        string
+	ProjectName        string
+	ProjectDescription string
+	Year               string
 }
 
 // rootCmd represents the base command when called without any subcommands
@@ -47,8 +49,8 @@ var rootCmd = &cobra.Command{
 	Long: `This command line utility gives you a simple place
 to start with your git repository. It starts you out
 with a fancy shmancy README.md and the MIT LICENSE.`,
-	Run: run,
-	Version: "1.0.0",
+	Run:     run,
+	Version: "1.1.0",
 }
 
 func run(cmd *cobra.Command, args []string) {
@@ -86,10 +88,15 @@ func run(cmd *cobra.Command, args []string) {
 		}
 	}
 
+	if doInit {
+		_, err = git.PlainInit("./", false)
+		if err != nil {
+			fmt.Println("Could not initialize git repo: ", err)
+		}
+	}
 
 	fmt.Println("Successfully generated repository!")
 }
-
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
@@ -104,61 +111,12 @@ func init() {
 	rootCmd.Flags().StringVarP(&project.ProjectName, "name", "n", "", "project's name")
 	rootCmd.Flags().StringVarP(&project.ProjectDescription, "description", "d", "", "project's description")
 
+	rootCmd.Flags().BoolVarP(&doInit, "init", "i", false, "initialize git repo")
+
 	_ = rootCmd.MarkFlagRequired("author")
 	_ = rootCmd.MarkFlagRequired("authorUsername")
 	_ = rootCmd.MarkFlagRequired("name")
 	_ = rootCmd.MarkFlagRequired("description")
 
-	project.Year = string(time.Now().Year())
-}
-
-func licenseTemplate() string {
-	var tmpl =
-		`MIT License
-
-Copyright (c) {{.Year}} {{.AuthorName}}
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
-
-	return tmpl
-}
-
-func readmeTemplate() string {
-	var tmpl =
-		`<h1 align="center">{{.ProjectName}}</h1>
-<p align="center"><i>Made with :heart: by <a href="https://github.com/{{.AuthorUsername}}">@{{.AuthorUsername}}</a></i></p>
-
-{{.ProjectDescription}}
-
-## Built With
-> Used technologies here
-
-## Usage
-> How to use this software
-
-## Licensing
-
-This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/)
-
-## Authors
-
-* [{{.AuthorName}}](https://github.com/{{.AuthorUsername}})`
-
-	return tmpl
+	project.Year = time.Now().Format("2006")
 }
