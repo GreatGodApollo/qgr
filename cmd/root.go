@@ -23,8 +23,6 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/go-git/go-git/v5"
-	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/spf13/cobra"
 	"os"
 	"text/template"
@@ -45,13 +43,12 @@ type projInfo struct {
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "qgr",
-	Short: "A quick and easy way to generate a git repository",
-	Long: `This command line utility gives you a simple
-place to start with your git repository. It starts you
-out with a fancy shmancy README.md and the MIT LICENSE.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
+	Short: "A quick and easy way to start your git repos",
+	Long: `This command line utility gives you a simple place
+to start with your git repository. It starts you out
+with a fancy shmancy README.md and the MIT LICENSE.`,
 	Run: run,
+	Version: "1.0.0",
 }
 
 func run(cmd *cobra.Command, args []string) {
@@ -93,8 +90,7 @@ func run(cmd *cobra.Command, args []string) {
 	fmt.Println("Successfully generated repository!")
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
+
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
@@ -103,12 +99,10 @@ func Execute() {
 }
 
 func init() {
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().StringVarP(&project.AuthorName, "author", "a", "", "Author's name")
-	rootCmd.Flags().StringVarP(&project.AuthorUsername, "authorUsername", "u", "", "Author's Username")
-	rootCmd.Flags().StringVarP(&project.ProjectName, "name", "n", "", "Project's name")
-	rootCmd.Flags().StringVarP(&project.ProjectDescription, "description", "d", "", "Project's description")
+	rootCmd.Flags().StringVarP(&project.AuthorName, "author", "a", "", "author's name")
+	rootCmd.Flags().StringVarP(&project.AuthorUsername, "authorUsername", "u", "", "author's username")
+	rootCmd.Flags().StringVarP(&project.ProjectName, "name", "n", "", "project's name")
+	rootCmd.Flags().StringVarP(&project.ProjectDescription, "description", "d", "", "project's description")
 
 	_ = rootCmd.MarkFlagRequired("author")
 	_ = rootCmd.MarkFlagRequired("authorUsername")

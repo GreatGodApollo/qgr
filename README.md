@@ -1,13 +1,49 @@
-<h1 align="center">QGR</h1>
+<h1 align="center">Quick Git Repo</h1>
 <p align="center"><i>Made with :heart: by <a href="https://github.com/GreatGodApollo">@GreatGodApollo</a></i></p>
 
-A quick and easy way to generate a repository
+Quick Git Repo (qgr) is a command line utility to aid in the creation of a git repository.
+Currently the utility only creates the `LICENSE` and `README.md` file, and does not initialize
+a proper git repository, this functionality could be expanded upon.
+
+## Installation
+
+### Scoop
+Do you have [scoop](https://github.com/lukesampson/scoop) installed? 
+Just use my scoop [bucket](https://github.com/GreatGodApollo/trough) to install QGR.
+```bash
+$ scoop bucket add trough https://github.com/GreatGodApollo/trough.git
+
+$ scoop install qsr
+```
+
+### Prepackaged Binaries
+Didn't find a method of installation that suits you above? Guess it's time for you to head
+on over to the [releases](https://github.com/GreatGodApollo/qgr/releases) page, where you can download the right executable for your system.
+Of course you may want to add it to your path for ease of use ;)
+
 
 ## Built With
-> Used technologies here
+- [spf13/cobra](https://github.com/spf13/cobra)
 
 ## Usage
-> How to use this software
+
+```bash
+$ qgr --help
+This command line utility gives you a simple place
+to start with your git repository. It starts you out
+with a fancy shmancy README.md and the MIT LICENSE.
+
+Usage:
+  qgr [flags]
+
+Flags:
+  -a, --author string           author's name
+  -u, --authorUsername string   author's username
+  -d, --description string      project's description
+  -h, --help                    help for qgr
+  -n, --name string             project's name
+  -v, --version                 version for qgr
+```
 
 ## Licensing
 
