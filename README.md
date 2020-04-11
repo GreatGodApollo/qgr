@@ -14,7 +14,7 @@ Just use my scoop [bucket](https://github.com/GreatGodApollo/trough) to install 
 ```bash
 $ scoop bucket add trough https://github.com/GreatGodApollo/trough.git
 
-$ scoop install qsr
+$ scoop install qgr
 ```
 
 ### Prepackaged Binaries
