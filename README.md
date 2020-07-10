@@ -25,7 +25,7 @@ Of course you may want to add it to your path for ease of use ;)
 
 ## Built With
 - [spf13/cobra](https://github.com/spf13/cobra)
-- [go-git/go-git](https://github.com/go-git/go-git)
+- [go-cmd/cmd](https://github.com/go-cmd/cmd)
 
 ## Usage
 
